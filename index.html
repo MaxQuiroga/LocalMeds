@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Almacenamiento de remedios</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Inventario de casa</p>
+          <h1>Medicamentos</h1>
+        </div>
+        <div class="top-actions">
+          <label class="icon-button file-button" title="Importar datos" aria-label="Importar datos">
+            <span aria-hidden="true">&uarr;</span>
+            <input id="importInput" type="file" accept="application/json,.json">
+          </label>
+          <button class="icon-button" id="exportButton" type="button" title="Exportar datos" aria-label="Exportar datos">
+            <span aria-hidden="true">&darr;</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="Resumen">
+        <article class="summary-card">
+          <span class="summary-label">Total</span>
+          <strong id="totalCount">0</strong>
+        </article>
+        <article class="summary-card warning">
+          <span class="summary-label">Por vencer</span>
+          <strong id="soonCount">0</strong>
+        </article>
+        <article class="summary-card danger">
+          <span class="summary-label">Vencidos</span>
+          <strong id="expiredCount">0</strong>
+        </article>
+      </section>
+
+      <section class="toolbar" aria-label="Filtros">
+        <label class="search-field">
+          <span>Buscar</span>
+          <input id="searchInput" type="search" placeholder="Nombre, ubicacion o nota">
+        </label>
+        <label class="select-field">
+          <span>Estado</span>
+          <select id="statusFilter">
+            <option value="all">Todos</option>
+            <option value="ok">Vigentes</option>
+            <option value="soon">Por vencer</option>
+            <option value="expired">Vencidos</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="content-grid">
+        <form class="medicine-form" id="medicineForm">
+          <input type="hidden" id="medicineId">
+          <div class="form-title-row">
+            <h2 id="formTitle">Agregar medicamento</h2>
+            <button class="text-button subtle" id="cancelEditButton" type="button" hidden>Cancelar</button>
+          </div>
+
+          <label>
+            Nombre
+            <input id="nameInput" type="text" autocomplete="off" required>
+          </label>
+
+          <label>
+            Principio activo
+            <input id="activeInput" type="text" autocomplete="off" placeholder="Opcional">
+          </label>
+
+          <div class="form-row">
+            <label>
+              Cantidad
+              <input id="quantityInput" type="number" min="0" step="1" inputmode="numeric" required>
+            </label>
+            <label>
+              Vencimiento
+              <input id="expiryInput" type="date" required>
+            </label>
+          </div>
+
+          <label>
+            Ubicacion
+            <input id="locationInput" type="text" autocomplete="off" placeholder="Botiquin, cocina, dormitorio" required>
+          </label>
+
+          <label>
+            Notas
+            <textarea id="notesInput" rows="3" placeholder="Dosis, receta, para quien es, etc."></textarea>
+          </label>
+
+          <button class="primary-button" type="submit">Guardar</button>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
+
+        <section class="medicine-list-panel" aria-label="Medicamentos guardados">
+          <div class="list-header">
+            <h2>Guardados</h2>
+            <button class="text-button" id="seedButton" type="button">Ejemplos</button>
+          </div>
+          <div class="medicine-list" id="medicineList"></div>
+          <p class="empty-state" id="emptyState" hidden>No hay medicamentos con esos filtros.</p>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
